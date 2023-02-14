@@ -13,5 +13,8 @@ app.use(express.json());
 const indexRouter = require("./routes/index");
 app.use("/", indexRouter);
 
+const mongoose = require("mongoose");
+mongoose.connect(process.env.DATABASE_URI, () => console.log("Db connected"));
+
 const port = process.env.SERVER_PORT
 app.listen(port, () => console.log("Server is up"));
