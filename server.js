@@ -14,6 +14,10 @@ const indexRouter = require("./routes/index");
 app.use("/", indexRouter);
 
 const mongoose = require("mongoose");
+
+// Only insert fields to db if they are specified in schema
+mongoose.set("strictQuery", true);
+
 mongoose.connect(process.env.DATABASE_URI, () => console.log("Db connected"));
 
 const port = process.env.SERVER_PORT
