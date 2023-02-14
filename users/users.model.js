@@ -17,7 +17,7 @@ const userSchema = new mongoose.Schema({
     date: { type: Date, default: Date.now, required: true }
 });
 
-const User = mongoose.model("UserTemplate", userSchema, "users");
+const UserTemplate = mongoose.model("UserTemplate", userSchema, "users");
 
 const validateUser = (user) => {
     const schema = Joi.object({
@@ -29,6 +29,6 @@ const validateUser = (user) => {
 };
 
 module.exports = {
-    User,
+    UserTemplate,
     validateUser
 };
