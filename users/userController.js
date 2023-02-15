@@ -1,5 +1,6 @@
 const { UserTemplate } = require("./users.model");
 const jwt = require("jsonwebtoken");
+const bcryptjs = require("bcryptjs");
 
 exports.login = async (req, res) => {
     const user = await UserTemplate.findOne({ email: req.body.email });
@@ -7,16 +8,27 @@ exports.login = async (req, res) => {
         return res.status(400).json({ message: "User does not exist" });
     }
 
+    const isValidPassword = await bcryptjs.compare(req.body.password, user.password);
+    if (!isValidPassword) {
+        return res.status(400).json({ message: "Incorrect password" });
+    }
+
     const token = jwt.sign({ _id: user._id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "15m" });
     res.status(200).header("Authorization", token).json({ ok: true });
 };
 
-exports.createUser = (req, res) => {
-    return new UserTemplate({
-        email: req.body.email,
-        username: req.body.username,
-        password: req.body.password//todo implement encoding
-    })
+const generateUserObj = async (body) => {
+    const salt = await bcryptjs.genSalt(5);
+    const hashedPassword = await bcryptjs.hash(body.password, salt);
+    return {
+        email: body.email,
+        username: body.username,
+        password: hashedPassword
+    };
+};
+
+exports.createUser = async (req, res) => {
+    return new UserTemplate(await generateUserObj(req.body))
         .save()
         .then(data => res.status(201).json(data))
         .catch(err => res.status(400).json({ message: err.message }));
@@ -28,8 +40,8 @@ exports.getUser = (req, res) => {
         .catch(err => res.status(500).json({ message: err.message }));
 };
 
-exports.updateUser = (req, res) => {
-    UserTemplate.updateOne({ username: req.params.username }, req.body)
+exports.updateUser = async (req, res) => {
+    UserTemplate.updateOne({ username: req.params.username }, await generateUserObj(req.body))
         .then(() => res.status(200).json({ ok: true }))
         .catch(err => res.status(400).json({ message: err.message }));
 };
