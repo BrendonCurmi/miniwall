@@ -28,7 +28,16 @@ const validateUser = (user) => {
     return schema.validate(user);
 };
 
+const validateLogin = (user) => {
+    const schema = Joi.object({
+        email: Joi.string().email().required(),
+        password: Joi.string().min(8).max(200).regex(/[a-zA-Z0-9]{8,200}/).required()
+    });
+    return schema.validate(user);
+};
+
 module.exports = {
     UserTemplate,
-    validateUser
+    validateUser,
+    validateLogin
 };
