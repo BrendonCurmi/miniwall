@@ -13,6 +13,9 @@ app.use(express.json());
 const indexRouter = require("./routes/index");
 app.use("/", indexRouter);
 
+const usersRouter = require("./users/userRoutes");
+app.use("/user", usersRouter);
+
 const mongoose = require("mongoose");
 
 // Only insert fields to db if they are specified in schema
