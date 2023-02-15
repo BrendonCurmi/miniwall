@@ -1,3 +1,4 @@
+### Create
 POST http://localhost:4040/user/signup
 Content-Type: application/json
 
@@ -6,3 +7,19 @@ Content-Type: application/json
   "username": "myUsername",
   "password": "myPassword"
 }
+
+### Read
+GET http://localhost:4040/user/myUsername
+
+### Update
+PUT http://localhost:4040/user/myUsername
+Content-Type: application/json
+
+{
+  "email": "myemail@email.com",
+  "username": "myUsername",
+  "password": "newPassword"
+}
+
+### Delete
+DELETE http://localhost:4040/user/myUsername
