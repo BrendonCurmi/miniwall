@@ -7,4 +7,9 @@ const { validateUser } = require("./users.model");
 
 router.post("/signup", [validateMiddleWare(validateUser)], userController.createUser);
 
+router.route("/:username")
+    .get(userController.getUser)
+    .put(validateMiddleWare(validateUser), userController.updateUser)
+    .delete(userController.deleteUser);
+
 module.exports = router;
