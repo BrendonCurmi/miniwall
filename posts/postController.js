@@ -1,0 +1,47 @@
+const { PostTemplate } = require("./posts.model");
+const { UserTemplate } = require("../users/users.model");
+
+exports.createPost = async (req, res) => {
+    // todo either with user id or email
+    const user = await UserTemplate.findOne({ email: req.body.email });
+    if (!user) {
+        return res.status(400).json({ message: "User does not exist" });
+    }
+
+    return new PostTemplate({
+        title: req.body.title,
+        content: req.body.content,
+        owner: user._id
+    })
+        .save()
+        .then(data => res.status(201).json(data))
+        .catch(err => res.status(400).json({ message: err.message }));
+};
+
+exports.getPosts = (req, res) => {
+    PostTemplate.find().limit(20)
+        .then(data => res.status(200).json(data))
+        .catch(err => res.status(500).json({ message: err.message }));
+};
+
+exports.getPost = (req, res) => {
+    PostTemplate.findOne({ _id: req.params.id })
+        .then(data => res.status(200).json(data))
+        .catch(err => res.status(500).json({ message: err.message }));
+};
+
+exports.updatePost = async (req, res) => {
+    PostTemplate.updateOne({ _id: req.params.id }, req.body)
+        .then(() => res.status(200).json({ ok: true }))
+        .catch(err => res.status(400).json({ message: err.message }));
+};
+
+exports.deletePost = async (req, res) => {
+    const post = await PostTemplate.findById(req.params.id);
+    if (!post) {
+        return res.status(400).json({ message: "Post not found" });
+    }
+
+    post.remove();
+    res.status(200).json({ ok: true });
+};
