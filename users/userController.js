@@ -17,18 +17,18 @@ exports.login = async (req, res) => {
     res.status(200).header("Authorization", token).json({ ok: true });
 };
 
-const generateUserObj = async (body) => {
+const hashPassword = async (password) => {
+    if (!password) return;
     const salt = await bcryptjs.genSalt(5);
-    const hashedPassword = await bcryptjs.hash(body.password, salt);
-    return {
-        email: body.email,
-        username: body.username,
-        password: hashedPassword
-    };
+    return await bcryptjs.hash(password, salt);
 };
 
 exports.createUser = async (req, res) => {
-    return new UserTemplate(await generateUserObj(req.body))
+    return new UserTemplate({
+        email: req.body.email,
+        username: req.body.username,
+        password: await hashPassword(req.body.password)
+    })
         .save()
         .then(data => res.status(201).json(data))
         .catch(err => res.status(400).json({ message: err.message }));
@@ -41,7 +41,15 @@ exports.getUser = (req, res) => {
 };
 
 exports.updateUser = async (req, res) => {
-    UserTemplate.updateOne({ username: req.params.username }, await generateUserObj(req.body))
+    UserTemplate.updateOne(
+        { username: req.params.username },
+        {
+            $set: {
+                email: req.body.email,
+                username: req.body.username,
+                password: await hashPassword(req.body.password)
+            }
+        })
         .then(() => res.status(200).json({ ok: true }))
         .catch(err => res.status(400).json({ message: err.message }));
 };
