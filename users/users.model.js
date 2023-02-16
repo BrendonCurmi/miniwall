@@ -19,19 +19,23 @@ const userSchema = new mongoose.Schema({
 
 const UserTemplate = mongoose.model("UserTemplate", userSchema, "users");
 
+const emailSchema = Joi.string().email();
+const usernameSchema = Joi.string().min(6).max(30);
+const passwordSchema = Joi.string().min(8).max(200).regex(/[a-zA-Z0-9]{8,200}/);
+
 const validateUser = (user) => {
     const schema = Joi.object({
-        email: Joi.string().email().required(),
-        username: Joi.string().min(6).max(30).required(),
-        password: Joi.string().min(8).max(200).regex(/[a-zA-Z0-9]{8,200}/).required()
+        email: emailSchema.required(),
+        username: usernameSchema.required(),
+        password: passwordSchema.required()
     });
     return schema.validate(user);
 };
 
 const validateLogin = (user) => {
     const schema = Joi.object({
-        email: Joi.string().email().required(),
-        password: Joi.string().min(8).max(200).regex(/[a-zA-Z0-9]{8,200}/).required()
+        email: emailSchema.required(),
+        password: passwordSchema.required()
     });
     return schema.validate(user);
 };
