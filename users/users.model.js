@@ -32,6 +32,15 @@ const validateUser = (user) => {
     return schema.validate(user);
 };
 
+const validateUpdateUser = (user) => {
+    const schema = Joi.object({
+        email: emailSchema,
+        username: usernameSchema,
+        password: passwordSchema
+    });
+    return schema.validate(user);
+};
+
 const validateLogin = (user) => {
     const schema = Joi.object({
         email: emailSchema.required(),
@@ -43,5 +52,6 @@ const validateLogin = (user) => {
 module.exports = {
     UserTemplate,
     validateUser,
+    validateUpdateUser,
     validateLogin
 };
