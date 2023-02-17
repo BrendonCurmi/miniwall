@@ -33,7 +33,17 @@ const validatePost = (user) => {
     return schema.validate(user);
 };
 
+const validateUpdatePost = (user) => {
+    const schema = Joi.object({
+        title: titleSchema,
+        content: contentSchema,
+        email: emailSchema
+    });
+    return schema.validate(user);
+};
+
 module.exports = {
     PostTemplate,
-    validatePost
+    validatePost,
+    validateUpdatePost
 };
