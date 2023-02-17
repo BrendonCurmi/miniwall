@@ -1,0 +1,23 @@
+### Create post
+POST http://localhost:4040/post
+Content-Type: application/json
+
+{
+  "title": "first post",
+  "content": "first content",
+  "email": "myemail@email.com"
+}
+
+### Read post
+GET http://localhost:4040/post/63eeb67f7eea4b49559a696d
+
+### Update post
+PUT http://localhost:4040/post/63eeb67f7eea4b49559a696d
+Content-Type: application/json
+
+{
+  "content": "first content revised"
+}
+
+### Delete post
+DELETE http://localhost:4040/post/63eeb67f7eea4b49559a696d
