@@ -11,7 +11,7 @@ exports.createPost = async (req, res) => {
     return new PostTemplate({
         title: req.body.title,
         content: req.body.content,
-        owner: user._id
+        owner_id: user._id
     })
         .save()
         .then(data => res.status(201).json(data))
