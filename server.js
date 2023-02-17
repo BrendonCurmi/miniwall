@@ -20,6 +20,9 @@ app.use("/user", usersRouter);
 const verifyToken = require("./middleware/verifyToken");
 app.use(verifyToken);
 
+const postRouter = require("./posts/postRoutes");
+app.use("/post", postRouter);
+
 const mongoose = require("mongoose");
 
 // Only insert fields to db if they are specified in schema
