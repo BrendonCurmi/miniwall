@@ -31,7 +31,7 @@ exports.createUser = async (req, res) => {
     })
         .save()
         .then(data => res.status(201).json(data))
-        .catch(err => res.status(400).json({ message: err.message }));
+        .catch(err => res.status(500).json({ message: err.message }));
 };
 
 exports.getUser = (req, res) => {
@@ -51,7 +51,7 @@ exports.updateUser = async (req, res) => {
             }
         })
         .then(() => res.status(200).json({ ok: true }))
-        .catch(err => res.status(400).json({ message: err.message }));
+        .catch(err => res.status(500).json({ message: err.message }));
 };
 
 exports.deleteUser = async (req, res) => {
