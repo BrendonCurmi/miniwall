@@ -21,3 +21,16 @@ Content-Type: application/json
 
 ### Delete
 DELETE http://localhost:4040/user/myUsername
+
+### Login
+POST http://localhost:4040/user/login
+Content-Type: application/json
+
+{
+  "email": "myemail@email.com",
+  "password": "newPassword"
+}
+
+### Test auth
+GET http://localhost:4040/
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2VkNmQ5NjhkNmUwMmE2MWYyMTNiMTgiLCJpYXQiOjE2NzY1MDQ0OTUsImV4cCI6MTY3NjUwNTM5NX0.SuWnpJiOaNgnRSXokYeU0BnkQthKMMyWHWIIR9W4-k8
