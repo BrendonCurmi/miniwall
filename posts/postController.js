@@ -25,19 +25,19 @@ exports.getPosts = (req, res) => {
 };
 
 exports.getPost = (req, res) => {
-    PostTemplate.findOne({ _id: req.params.id })
+    PostTemplate.findOne({ _id: req.params.postId })
         .then(data => res.status(200).json(data))
         .catch(err => res.status(500).json({ message: err.message }));
 };
 
 exports.updatePost = async (req, res) => {
-    PostTemplate.updateOne({ _id: req.params.id }, req.body)
+    PostTemplate.updateOne({ _id: req.params.postId }, req.body)
         .then(() => res.status(200).json({ ok: true }))
         .catch(err => res.status(400).json({ message: err.message }));
 };
 
 exports.deletePost = async (req, res) => {
-    const post = await PostTemplate.findById(req.params.id);
+    const post = await PostTemplate.findById(req.params.postId);
     if (!post) {
         return res.status(400).json({ message: "Post not found" });
     }

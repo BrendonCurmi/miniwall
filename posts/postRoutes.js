@@ -7,7 +7,7 @@ const { validatePost, validateUpdatePost } = require("./posts.model");
 
 router.post("/post/", [validateMiddleWare(validatePost)], postController.createPost);
 
-router.route("/post/:id")
+router.route("/post/:postId")
     .get(postController.getPost)
     .put([validateMiddleWare(validateUpdatePost)], postController.updatePost)
     .delete(postController.deletePost);
