@@ -21,7 +21,7 @@ const verifyToken = require("./middleware/verifyToken");
 app.use(verifyToken);
 
 const postRouter = require("./posts/postRoutes");
-app.use("/post", postRouter);
+app.use(postRouter);
 
 const mongoose = require("mongoose");
 

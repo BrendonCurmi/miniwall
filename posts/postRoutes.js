@@ -5,9 +5,9 @@ const postController = require("./postController");
 const validateMiddleWare = require("../middleware/validate");
 const { validatePost, validateUpdatePost } = require("./posts.model");
 
-router.post("/", [validateMiddleWare(validatePost)], postController.createPost);
+router.post("/post/", [validateMiddleWare(validatePost)], postController.createPost);
 
-router.route("/:id")
+router.route("/post/:id")
     .get(postController.getPost)
     .put([validateMiddleWare(validateUpdatePost)], postController.updatePost)
     .delete(postController.deletePost);
