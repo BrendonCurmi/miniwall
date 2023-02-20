@@ -23,6 +23,9 @@ app.use(verifyToken);
 const postRouter = require("./posts/postRoutes");
 app.use(postRouter);
 
+const likeRouter = require("./likes/likeRoutes");
+app.use(likeRouter);
+
 const mongoose = require("mongoose");
 
 // Only insert fields to db if they are specified in schema
