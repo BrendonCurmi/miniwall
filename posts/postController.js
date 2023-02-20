@@ -50,6 +50,6 @@ exports.deletePost = async (req, res) => {
         }
     }
 
-    post.remove();
+    post.deleteOne();
     res.status(200).json({ ok: true });
 };
