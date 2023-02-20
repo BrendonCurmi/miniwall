@@ -1,5 +1,6 @@
 const { PostTemplate } = require("./posts.model");
 const { UserTemplate } = require("../users/users.model");
+const { deleteLikeById } = require("../likes/likeController");
 
 exports.createPost = async (req, res) => {
     // todo either with user id or email
@@ -40,6 +41,13 @@ exports.deletePost = async (req, res) => {
     const post = await PostTemplate.findById(req.params.postId);
     if (!post) {
         return res.status(400).json({ message: "Post not found" });
+    }
+
+    // Delete likes
+    if (post.likes) {
+        for (const likeId of post.likes) {
+            deleteLikeById(likeId);
+        }
     }
 
     post.remove();
