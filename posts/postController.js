@@ -46,7 +46,7 @@ exports.deletePost = async (req, res) => {
     // Delete likes
     if (post.likes) {
         for (const likeId of post.likes) {
-            deleteLikeById(likeId);
+            await deleteLikeById(likeId);
         }
     }
 
