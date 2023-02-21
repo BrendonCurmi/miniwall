@@ -17,6 +17,16 @@ const likeSchema = new mongoose.Schema({
 
 const LikeTemplate = mongoose.model("LikeTemplate", likeSchema, "likes");
 
+const emailSchema = Joi.string().email();
+
+const validateLike = (user) => {
+    const schema = Joi.object({
+        email: emailSchema.required()
+    });
+    return schema.validate(user);
+};
+
 module.exports = {
-    LikeTemplate
+    LikeTemplate,
+    validateLike
 };
