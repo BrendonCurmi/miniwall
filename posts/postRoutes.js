@@ -5,6 +5,8 @@ const postController = require("./postController");
 const validateMiddleWare = require("../middleware/validate");
 const { validatePost, validateUpdatePost } = require("./posts.model");
 
+router.get("/feed/", postController.getFeed);
+
 router.get("/posts/", postController.getPosts);
 
 router.post("/post/", [validateMiddleWare(validatePost)], postController.createPost);
