@@ -19,6 +19,11 @@ const postSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "likes"
     }],
+    likesLength: {
+        type: Number,
+        default: 0,
+        required: true
+    },
     timestamp: { type: Date, default: Date.now, required: true }
 });
 
