@@ -3,9 +3,6 @@ const { UserTemplate } = require("../users/users.model");
 const { PostTemplate } = require("../posts/posts.model");
 
 exports.addComment = async (req, res) => {
-    const user = await UserTemplate.findOne({ email: req.body.email });
-    if (!user) return res.status(400).json({ message: "User does not exist" });
-
     const post = await PostTemplate.findOne({ _id: req.params.postId });
     if (!post) return res.status(400).json({ message: "Post does not exist" });
 
@@ -13,7 +10,7 @@ exports.addComment = async (req, res) => {
         const newComment = await new CommentTemplate({
             content: req.body.content,
             post_id: post._id,
-            owner_id: user._id
+            owner_id: req.decoded.userId
         }).save();
 
         await PostTemplate.findByIdAndUpdate(req.params.postId,
