@@ -1,18 +1,11 @@
 const { PostTemplate } = require("./posts.model");
-const { UserTemplate } = require("../users/users.model");
 const { deleteLikeById } = require("../likes/likeController");
 
 exports.createPost = async (req, res) => {
-    // todo either with user id or email
-    const user = await UserTemplate.findOne({ email: req.body.email });
-    if (!user) {
-        return res.status(400).json({ message: "User does not exist" });
-    }
-
     return new PostTemplate({
         title: req.body.title,
         content: req.body.content,
-        owner_id: user._id
+        owner_id: req.decoded.userId
     })
         .save()
         .then(data => res.status(201).json(data))
