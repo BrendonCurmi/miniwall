@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const Joi = require("joi");
 
 const likeSchema = new mongoose.Schema({
     post_id: {
@@ -17,16 +16,6 @@ const likeSchema = new mongoose.Schema({
 
 const LikeTemplate = mongoose.model("LikeTemplate", likeSchema, "likes");
 
-const emailSchema = Joi.string().email();
-
-const validateLike = (user) => {
-    const schema = Joi.object({
-        email: emailSchema.required()
-    });
-    return schema.validate(user);
-};
-
 module.exports = {
-    LikeTemplate,
-    validateLike
+    LikeTemplate
 };
