@@ -4,7 +4,7 @@ const verifyToken = async (req, res, next) => {
     const token = req.header("Authorization");
     if (token) {
         try {
-            req.user = await jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+            req.decoded = await jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
             next();
         } catch (ex) {
             res.sendStatus(401);
