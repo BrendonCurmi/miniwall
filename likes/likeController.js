@@ -15,9 +15,12 @@ exports.addLike = async (req, res) => {
             owner_id: user._id
         }).save();
 
-        await PostTemplate.findByIdAndUpdate(req.params.postId, { $push: { likes: newLike._id } }, {
-            new: true
-        });
+        await PostTemplate.findByIdAndUpdate(req.params.postId,
+            {
+                $push: { likes: newLike._id },
+                $inc: { "likesLength": 1 }
+            },
+            { new: true });
 
         return res.status(201).json(newLike);
     } catch (err) {
@@ -50,7 +53,11 @@ exports.deleteLike = async (req, res) => {
     const post = await PostTemplate.findById(req.params.postId );
     if (!post) return res.status(400).json({ message: "Post does not exist" });
 
-    await PostTemplate.findByIdAndUpdate(req.params.postId, { $pull: { likes: like._id } });
+    await PostTemplate.findByIdAndUpdate(req.params.postId,
+        {
+            $pull: { likes: like._id },
+            $inc: { "likesLength": -1 }
+        });
 
     like.deleteOne();
 
