@@ -35,13 +35,11 @@ const PostTemplate = mongoose.model("PostTemplate", postSchema, "posts");
 
 const titleSchema = Joi.string().min(5).max(30);
 const contentSchema = Joi.string().min(5).max(200);
-const emailSchema = Joi.string().email();
 
 const validatePost = (user) => {
     const schema = Joi.object({
         title: titleSchema.required(),
-        content: contentSchema.required(),
-        email: emailSchema.required()
+        content: contentSchema.required()
     });
     return schema.validate(user);
 };
@@ -49,8 +47,7 @@ const validatePost = (user) => {
 const validateUpdatePost = (user) => {
     const schema = Joi.object({
         title: titleSchema,
-        content: contentSchema,
-        email: emailSchema
+        content: contentSchema
     });
     return schema.validate(user);
 };
