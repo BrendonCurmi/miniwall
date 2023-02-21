@@ -26,6 +26,9 @@ app.use(postRouter);
 const likeRouter = require("./likes/likeRoutes");
 app.use(likeRouter);
 
+const commentRouter = require("./comments/commentRoutes");
+app.use(commentRouter);
+
 const mongoose = require("mongoose");
 
 // Only insert fields to db if they are specified in schema
