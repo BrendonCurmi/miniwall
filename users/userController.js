@@ -13,7 +13,7 @@ exports.login = async (req, res) => {
         return res.status(400).json({ message: "Incorrect password" });
     }
 
-    const token = jwt.sign({ _id: user._id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "15m" });
+    const token = jwt.sign({ userId: user._id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "15m" });
     res.status(200).header("Authorization", token).json({ ok: true });
 };
 
