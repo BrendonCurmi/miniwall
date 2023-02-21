@@ -1,5 +1,4 @@
 const { CommentTemplate } = require("./comments.model");
-const { UserTemplate } = require("../users/users.model");
 const { PostTemplate } = require("../posts/posts.model");
 
 exports.addComment = async (req, res) => {
@@ -48,7 +47,7 @@ exports.updateComment = (req, res) => {
 
 exports.deleteComment = async (req, res) => {
     const like = await CommentTemplate.findById(req.params.commentId);
-    if (!like) return res.status(400).json({ message: "Like not found" });
+    if (!like) return res.status(400).json({ message: "Comment not found" });
 
     const post = await PostTemplate.findById(req.params.postId );
     if (!post) return res.status(400).json({ message: "Post does not exist" });
