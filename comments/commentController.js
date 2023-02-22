@@ -50,18 +50,22 @@ exports.updateComment = (req, res) => {
 };
 
 exports.deleteComment = async (req, res) => {
-    const like = await CommentTemplate.findById(req.params.commentId);
-    if (!like) return res.status(400).json({ message: "Comment not found" });
+    const comment = await CommentTemplate.findById(req.params.commentId);
+    if (!comment) return res.status(400).json({ message: "Comment not found" });
 
-    const post = await PostTemplate.findById(req.params.postId );
+    const post = await PostTemplate.findById(req.params.postId);
     if (!post) return res.status(400).json({ message: "Post does not exist" });
+
+    if (!comment.owner_id.equals(req.decoded.userId)) {
+        return res.status(400).json({ message: "Comment can only be deleted by comment owner" });
+    }
 
     await PostTemplate.findByIdAndUpdate(req.params.postId,
         {
-            $pull: { comments: like._id }
+            $pull: { comments: comment._id }
         });
 
-    like.deleteOne();
+    comment.deleteOne();
 
     res.status(200).json({ ok: true });
 };
