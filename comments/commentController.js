@@ -5,6 +5,10 @@ exports.addComment = async (req, res) => {
     const post = await PostTemplate.findOne({ _id: req.params.postId });
     if (!post) return res.status(400).json({ message: "Post does not exist" });
 
+    if (post.owner_id.equals(req.decoded.userId)) {
+        return res.status(400).json({ message: "User cannot comment on their own post" });
+    }
+
     try {
         const newComment = await new CommentTemplate({
             content: req.body.content,
