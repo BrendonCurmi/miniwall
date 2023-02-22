@@ -51,7 +51,7 @@ exports.deleteLike = async (req, res) => {
     const like = await LikeTemplate.findById(req.params.likeId);
     if (!like) return res.status(400).json({ message: "Like not found" });
 
-    const post = await PostTemplate.findById(req.params.postId );
+    const post = await PostTemplate.findById(req.params.postId);
     if (!post) return res.status(400).json({ message: "Post does not exist" });
 
     if (!like.owner_id.equals(req.decoded.userId)) {
