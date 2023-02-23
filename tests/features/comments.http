@@ -1,0 +1,59 @@
+### Read comments on other's post
+GET {{API}}/post/{{user1PostId}}/comments
+Authorization: {{user2Token}}
+
+### Read comments on own post
+GET {{API}}/post/{{user1PostId}}/comments
+Authorization: {{user1Token}}
+
+### Create comment on other's post
+POST {{API}}/post/{{user1PostId}}/comment
+Authorization: {{user2Token}}
+Content-Type: application/json
+
+{
+  "content": "User 2 comment"
+}
+
+### Create comment on own post unsuccessfully
+POST {{API}}/post/{{user1PostId}}/comment
+Authorization: {{user1Token}}
+Content-Type: application/json
+
+{
+  "content": "User 1 comment"
+}
+
+### Read other's comment
+GET {{API}}/post/{{user1PostId}}/comment/{{user2CommentId}}
+Authorization: {{user1Token}}
+
+### Read own comment
+GET {{API}}/post/{{user1PostId}}/comment/{{user2CommentId}}
+Authorization: {{user2Token}}
+
+### Update other's comment unsuccessfully
+PUT {{API}}/post/{{user1PostId}}/comment/{{user2CommentId}}
+Authorization: {{user1Token}}
+Content-Type: application/json
+
+{
+  "content": "User 1 revised comment"
+}
+
+### Update own comment
+PUT {{API}}/post/{{user1PostId}}/comment/{{user2CommentId}}
+Authorization: {{user2Token}}
+Content-Type: application/json
+
+{
+  "content": "User 2 revised comment"
+}
+
+### Delete other's comment unsuccessfully
+DELETE {{API}}/post/{{user1PostId}}/comment/{{user2CommentId}}
+Authorization: {{user1Token}}
+
+### Delete own comment
+DELETE {{API}}/post/{{user1PostId}}/comment/{{user2CommentId}}
+Authorization: {{user2Token}}
