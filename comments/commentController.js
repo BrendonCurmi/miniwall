@@ -43,10 +43,23 @@ exports.getComment = (req, res) => {
         .catch(err => res.status(500).json({ message: err.message }));
 };
 
-exports.updateComment = (req, res) => {
-    CommentTemplate.updateOne({ _id: req.params.commentId }, req.body)
-        .then(() => res.status(200).json({ ok: true }))
-        .catch(err => res.status(400).json({ message: err.message }));
+exports.updateComment = async (req, res) => {
+    const comment = await CommentTemplate.findById(req.params.commentId);
+    if (!comment) return res.status(400).json({ message: "Comment not found" });
+
+    const post = await PostTemplate.findOne({ _id: req.params.postId });
+    if (!post) return res.status(400).json({ message: "Post does not exist" });
+
+    if (!comment.owner_id.equals(req.decoded.userId)) {
+        return res.status(400).json({ message: "Comment can only be updated by comment owner" });
+    }
+
+    try {
+        CommentTemplate.findByIdAndUpdate(req.params.commentId, req.body);
+        res.status(200).json({ ok: true });
+    } catch (err) {
+        res.status(400).json({ message: err.message })
+    }
 };
 
 exports.deleteComment = async (req, res) => {
