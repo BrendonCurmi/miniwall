@@ -46,6 +46,10 @@ exports.deletePost = async (req, res) => {
         return res.status(400).json({ message: "Post not found" });
     }
 
+    if (!post.owner_id.equals(req.decoded.userId)) {
+        return res.status(400).json({ message: "Post can only be deleted by post owner" });
+    }
+
     // Delete likes
     if (post.likes) {
         for (const likeId of post.likes) {
