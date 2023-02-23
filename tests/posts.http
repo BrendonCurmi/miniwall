@@ -1,23 +1,47 @@
+### Read all posts
+GET {{API}}/posts
+Authorization: {{user1Token}}
+
 ### Create post
-POST http://localhost:4040/post
+POST {{API}}/post
+Authorization: {{user1Token}}
 Content-Type: application/json
 
 {
-  "title": "first post",
-  "content": "first content",
-  "email": "myemail@email.com"
+  "title": "User 1 post",
+  "content": "User 1 content"
 }
 
-### Read post
-GET http://localhost:4040/post/63eeb67f7eea4b49559a696d
+### Read other's post
+GET {{API}}/post/{{user1PostId}}
+Authorization: {{user2Token}}
 
-### Update post
-PUT http://localhost:4040/post/63eeb67f7eea4b49559a696d
+### Read own post
+GET {{API}}/post/{{user1PostId}}
+Authorization: {{user1Token}}
+
+### Update other's post unsuccessfully
+PUT {{API}}/post/{{user1PostId}}
+Authorization: {{user2Token}}
 Content-Type: application/json
 
 {
-  "content": "first content revised"
+  "content": "User 2 revised content"
 }
 
-### Delete post
-DELETE http://localhost:4040/post/63eeb67f7eea4b49559a696d
+### Update own post
+PUT {{API}}/post/{{user1PostId}}
+Authorization: {{user1Token}}
+Content-Type: application/json
+
+{
+  "content": "User 1 revised content"
+}
+
+### Delete other's post
+DELETE {{API}}/post/{{user1PostId}}
+Authorization: {{user2Token}}
+
+### Delete own post
+DELETE {{API}}/post/{{user1PostId}}
+Authorization: {{user1Token}}
