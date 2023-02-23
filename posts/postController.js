@@ -25,9 +25,19 @@ exports.getPost = (req, res) => {
 };
 
 exports.updatePost = async (req, res) => {
-    PostTemplate.updateOne({ _id: req.params.postId }, req.body)
-        .then(() => res.status(200).json({ ok: true }))
-        .catch(err => res.status(400).json({ message: err.message }));
+    const post = await PostTemplate.findOne({ _id: req.params.postId });
+    if (!post) return res.status(400).json({ message: "Post does not exist" });
+
+    if (!post.owner_id.equals(req.decoded.userId)) {
+        return res.status(400).json({ message: "Post can only be updated by post owner" });
+    }
+
+    try {
+        PostTemplate.findByIdAndUpdate(req.params.postId, req.body);
+        res.status(200).json({ ok: true });
+    } catch (err) {
+        res.status(400).json({ message: err.message })
+    }
 };
 
 exports.deletePost = async (req, res) => {
