@@ -1,0 +1,53 @@
+### Create like on own post unsuccessfully
+POST {{API}}/post/{{user1PostId}}/like
+Authorization: {{user1Token}}
+Content-Type: application/json
+
+{
+  "email": "myemail@email.com",
+  "type": "like"
+}
+
+### Create like on other's post
+POST {{API}}/post/{{user1PostId}}/like
+Authorization: {{user2Token}}
+Content-Type: application/json
+
+{
+  "email": "myemail@email.com",
+  "type": "like"
+}
+
+### Read other's like
+GET {{API}}/post/{{user1PostId}}/like/{{user2LikeId}}
+Authorization: {{user1Token}}
+
+### Read own like
+GET {{API}}/post/{{user1PostId}}/like/{{user2LikeId}}
+Authorization: {{user2Token}}
+
+### Update other's like unsuccessfully
+PUT {{API}}/post/{{user1PostId}}/like/{{user2LikeId}}
+Authorization: {{user1Token}}
+Content-Type: application/json
+
+{
+  "type": "crying"
+}
+
+### Update own like
+PUT {{API}}/post/{{user1PostId}}/like/{{user2LikeId}}
+Authorization: {{user2Token}}
+Content-Type: application/json
+
+{
+  "type": "heart"
+}
+
+### Delete other's like unsuccessfully
+DELETE {{API}}/post/{{user1PostId}}/like/{{user2LikeId}}
+Authorization: {{user1Token}}
+
+### Delete own like
+DELETE {{API}}/post/{{user1PostId}}/like/{{user2LikeId}}
+Authorization: {{user2Token}}
