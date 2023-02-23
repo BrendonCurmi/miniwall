@@ -1,0 +1,49 @@
+### Create user 1
+POST {{API}}/user/signup
+Content-Type: application/json
+
+{
+  "email": "user1@email.com",
+  "username": "User1",
+  "password": "user1Password"
+}
+
+### Create user 2
+POST {{API}}/user/signup
+Content-Type: application/json
+
+{
+  "email": "user2@email.com",
+  "username": "User2",
+  "password": "user2Password"
+}
+
+### Read user 1
+GET {{API}}/user/User1
+
+### Update user 1
+PUT {{API}}/user/User1
+Authorization: {{user1Token}}
+Content-Type: application/json
+
+{
+  "password": "newPassword",
+  "email": "myemail@email.com"
+}
+
+### Delete
+DELETE {{API}}/user/User1
+Authorization: {{user1Token}}
+
+### Login
+POST {{API}}/user/login
+Content-Type: application/json
+
+{
+  "email": "user1@email.com",
+  "password": "user1Password"
+}
+
+### Test auth
+GET {{API}}
+Authorization: {{user1Token}}
