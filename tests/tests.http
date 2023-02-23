@@ -1,0 +1,206 @@
+### Read all posts
+GET {{API}}/posts
+
+### Create Olga's account
+POST {{API}}/signup
+Content-Type: application/json
+
+{
+  "email": "olga@email.com",
+  "username": "Olga",
+  "password": "olgaPassword"
+}
+
+### Create Nick's account
+POST {{API}}/signup
+Content-Type: application/json
+
+{
+  "email": "nick@email.com",
+  "username": "Nick",
+  "password": "nickPassword"
+}
+
+### Create Mary's account
+POST {{API}}/signup
+Content-Type: application/json
+
+{
+  "email": "mary@email.com",
+  "username": "Mary",
+  "password": "maryPassword"
+}
+
+
+
+### Log into Olga's account
+POST {{API}}/login
+Content-Type: application/json
+
+{
+  "email": "olga@email.com",
+  "password": "olgaPassword"
+}
+
+### Log into Nick's account
+POST {{API}}/login
+Content-Type: application/json
+
+{
+  "email": "nick@email.com",
+  "password": "nickPassword"
+}
+
+### Log into Mary's account
+POST {{API}}/login
+Content-Type: application/json
+
+{
+  "email": "mary@email.com",
+  "password": "maryPassword"
+}
+
+
+
+
+
+### Olga makes unsuccessful call
+GET {{API}}/feed
+
+### Olga creates post
+POST {{API}}/post
+Content-Type: application/json
+Authorization: {{olgaToken}}
+
+{
+  "title": "Olga's post",
+  "content": "This is Olga's first post"
+}
+
+### Nick creates post
+POST {{API}}/post
+Content-Type: application/json
+Authorization: {{nickToken}}
+
+{
+  "title": "Nick's post",
+  "content": "This is Nick's first post"
+}
+
+### Mary creates post
+POST {{API}}/post
+Content-Type: application/json
+Authorization: {{maryToken}}
+
+{
+  "title": "Mary's post",
+  "content": "This is Mary's first post"
+}
+
+
+
+
+
+### Nick browses feed
+GET {{API}}/feed
+Authorization: {{nickToken}}
+
+
+### Olga browses feed
+GET {{API}}/post
+Authorization: {{olgaToken}}
+
+
+
+
+
+
+
+### Nick comments on Mary's post
+POST {{API}}/post/{{maryPostId}}/comment
+Content-Type: application/json
+Authorization: {{nickToken}}
+
+{
+  "content": "Hi I'm Nick's comment"
+}
+
+### Olga comments on Mary's post
+POST {{API}}/post/{{maryPostId}}/comment
+Content-Type: application/json
+Authorization: {{olgaToken}}
+
+{
+  "content": "Hi I'm Olga's comment"
+}
+
+
+
+### Mary fails to comment on her post
+POST {{API}}/post/{{maryPostId}}/comment
+Content-Type: application/json
+Authorization: {{maryToken}}
+
+{
+  "content": "Hi I'm Mary's comment"
+}
+
+
+
+### Mary browses feed
+GET {{API}}/post
+Authorization: {{maryToken}}
+
+
+
+### Mary browses comments on her post
+GET {{API}}/post/{{maryPostId}}/comments
+Authorization: {{maryToken}}
+
+
+
+
+### Nick likes Mary's post
+POST {{API}}/post/{{maryPostId}}/like
+Content-Type: application/json
+Authorization: {{nickToken}}
+
+{
+  "email": "myemail@email.com",
+  "type": "like"
+}
+###todo remove email from the above and below and below that
+
+### Olga likes Mary's post
+POST {{API}}/post/{{maryPostId}}/like
+Content-Type: application/json
+Authorization: {{olgaToken}}
+
+{
+  "email": "myemail@email.com",
+  "type": "like"
+}
+
+
+
+### Mary fails to like her post
+POST {{API}}/post/{{maryPostId}}/like
+Content-Type: application/json
+Authorization: {{maryToken}}
+
+{
+  "email": "myemail@email.com",
+  "type": "like"
+}
+
+
+
+### Mary browses likes on her post
+GET {{API}}/post/{{maryPostId}}/likes
+Authorization: {{maryToken}}
+
+
+
+### Nick browses feed and sees Mary's post at the top
+GET {{API}}/feed
+Authorization: {{nickToken}}
