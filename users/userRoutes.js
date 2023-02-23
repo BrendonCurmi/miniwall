@@ -3,15 +3,11 @@ const router = express.Router();
 
 const userController = require("./userController");
 const validateMiddleWare = require("../middleware/validate");
-const { validateUser, validateUpdateUser, validateLogin } = require("./users.model");
-
-router.post("/signup", [validateMiddleWare(validateUser)], userController.createUser);
+const { validateUpdateUser } = require("./users.model");
 
 router.route("/:username")
     .get(userController.getUser)
     .put(validateMiddleWare(validateUpdateUser), userController.updateUser)
     .delete(userController.deleteUser);
-
-router.post("/login", [validateMiddleWare(validateLogin)], userController.login);
 
 module.exports = router;
