@@ -13,12 +13,15 @@ app.use(express.json());
 const indexRouter = require("./routes/index");
 app.use("/", indexRouter);
 
-const usersRouter = require("./users/userRoutes");
-app.use("/user", usersRouter);
+const authRouter = require("./users/authRoutes");
+app.use("/", authRouter);
 
 // Auth jwt middleware for routes below
 const verifyToken = require("./middleware/verifyToken");
 app.use(verifyToken);
+
+const usersRouter = require("./users/userRoutes");
+app.use("/user", usersRouter);
 
 const postRouter = require("./posts/postRoutes");
 app.use(postRouter);
