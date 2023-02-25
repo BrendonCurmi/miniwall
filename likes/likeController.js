@@ -53,7 +53,7 @@ exports.updateLike = (req, res) => {
 
 exports.deleteLike = async (req, res) => {
     const like = await LikeTemplate.findById(req.params.likeId);
-    if (!like) return res.status(400).json({ message: "Like not found" });
+    if (!like) return res.status(400).json({ message: "Like does not exist" });
 
     const post = await PostTemplate.findById(req.params.postId);
     if (!post) return res.status(400).json({ message: "Post does not exist" });
