@@ -70,7 +70,7 @@ exports.deleteLike = async (req, res) => {
 
     like.deleteOne();
 
-    res.status(200).json({ ok: true });
+    res.sendStatus(200);
 };
 
 exports.deleteLikeById = (likeId) => {
