@@ -24,7 +24,7 @@ exports.addLike = async (req, res) => {
 
         return res.status(201).json(newLike);
     } catch (err) {
-        return res.status(400).json({ message: err.message });
+        return res.status(500).json({ message: err.message });
     }
 };
 
