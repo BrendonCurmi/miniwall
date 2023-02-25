@@ -20,6 +20,7 @@ Content-Type: application/json
 
 ### Read user 1
 GET {{API}}/user/User1
+Authorization: {{user1Token}}
 
 ### Update user 1
 PUT {{API}}/user/User1
