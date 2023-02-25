@@ -62,7 +62,7 @@ exports.deletePost = async (req, res) => {
     }
 
     post.deleteOne();
-    res.status(200).json({ ok: true });
+    res.sendStatus(200);
 };
 
 exports.getFeed = async (req, res) => {
