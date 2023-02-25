@@ -9,7 +9,7 @@ exports.createPost = async (req, res) => {
     })
         .save()
         .then(data => res.status(201).json(data))
-        .catch(err => res.status(400).json({ message: err.message }));
+        .catch(err => res.status(500).json({ message: err.message }));
 };
 
 exports.getPosts = (req, res) => {
