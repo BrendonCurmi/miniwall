@@ -18,10 +18,14 @@ exports.getPosts = (req, res) => {
         .catch(err => res.status(500).json({ message: err.message }));
 };
 
-exports.getPost = (req, res) => {
-    PostTemplate.findOne({ _id: req.params.postId })
-        .then(data => res.status(200).json(data))
-        .catch(err => res.status(500).json({ message: err.message }));
+exports.getPost = async (req, res) => {
+    try {
+        const post = await PostTemplate.findOne({ _id: req.params.postId });
+        if (!post) return res.status(400).json({ message: "Post does not exist" });
+        res.status(200).json(post);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
 };
 
 exports.updatePost = async (req, res) => {
