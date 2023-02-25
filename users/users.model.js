@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
 const UserTemplate = mongoose.model("UserTemplate", userSchema, "users");
 
 const emailSchema = Joi.string().email();
-const usernameSchema = Joi.string().min(6).max(30);
+const usernameSchema = Joi.string().min(5).max(30).regex(/[a-zA-Z0-9]/);
 const passwordSchema = Joi.string().min(8).max(200).regex(/[a-zA-Z0-9]{8,200}/);
 
 const validateUser = (user) => {
