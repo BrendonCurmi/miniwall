@@ -34,10 +34,14 @@ exports.createUser = async (req, res) => {
         .catch(err => res.status(500).json({ message: err.message }));
 };
 
-exports.getUser = (req, res) => {
-    UserTemplate.findOne({ username: req.params.username })
-        .then(data => res.status(200).json(data))
-        .catch(err => res.status(500).json({ message: err.message }));
+exports.getUser = async (req, res) => {
+    try {
+        const user = await UserTemplate.findOne({ username: req.params.username });
+        if (!user) return res.status(400).json({ message: "User does not exist" });
+        res.status(200).json(user);
+    } catch(err) {
+        res.status(500).json({ message: err.message });
+    }
 };
 
 exports.updateUser = async (req, res) => {
