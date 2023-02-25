@@ -37,10 +37,14 @@ exports.getCommentsFromPost = async (req, res) => {
         .catch(err => res.status(500).json({ message: err.message }));
 };
 
-exports.getComment = (req, res) => {
-    CommentTemplate.findOne({ _id: req.params.commentId })
-        .then(data => res.status(200).json(data))
-        .catch(err => res.status(500).json({ message: err.message }));
+exports.getComment = async (req, res) => {
+    try {
+        const comment = await CommentTemplate.findById(req.params.commentId);
+        if (!comment) return res.status(400).json({ message: "Comment not found" });
+        res.status(200).json(comment);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
 };
 
 exports.updateComment = async (req, res) => {
