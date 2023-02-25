@@ -45,17 +45,23 @@ exports.getUser = async (req, res) => {
 };
 
 exports.updateUser = async (req, res) => {
-    UserTemplate.updateOne(
-        { username: req.params.username },
-        {
-            $set: {
-                email: req.body.email,
-                username: req.body.username,
-                password: await hashPassword(req.body.password)
-            }
-        })
-        .then(() => res.status(200).json({ ok: true }))
-        .catch(err => res.status(500).json({ message: err.message }));
+    try {
+        const user = await UserTemplate.findOne({ username: req.params.username });
+        if (!user) return res.status(400).json({ message: "User does not exist" });
+
+        const updatedUser = await UserTemplate.findOneAndUpdate(
+            { username: req.params.username },
+            {
+                $set: {
+                    email: req.body.email,
+                    username: req.body.username,
+                    password: await hashPassword(req.body.password)
+                }
+            });
+        res.status(200).json(updatedUser);
+    } catch(err) {
+        res.status(500).json({ message: err.message });
+    }
 };
 
 exports.deleteUser = async (req, res) => {
