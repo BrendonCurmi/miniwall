@@ -65,6 +65,9 @@ exports.updateUser = async (req, res) => {
 };
 
 exports.deleteUser = async (req, res) => {
-    await UserTemplate.deleteOne({ username: req.params.username });
-    res.status(200).json({ ok: true });
+    const user = await UserTemplate.findOne({ username: req.params.username });
+    if (!user) return res.status(400).json({ message: "User does not exist" });
+
+    const deleted = await UserTemplate.deleteOne({ username: req.params.username });
+    res.sendStatus(deleted.deletedCount === 1 ? 200 : 500);
 };
