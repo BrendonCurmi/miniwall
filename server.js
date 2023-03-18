@@ -8,6 +8,10 @@ app.use(cookieParser());
 
 app.use(express.json());
 
+// Sanitise request bodies and params
+let xss = require("xss-clean");
+app.use(xss())
+
 // app.use(express.urlencoded({ extended: false }));
 
 const authRouter = require("./users/authRoutes");
