@@ -44,11 +44,23 @@ exports.getLike = async (req, res) => {
     }
 };
 
-//todo this is unneeded. to be removed
-exports.updateLike = (req, res) => {
-    LikeTemplate.updateOne({ _id: req.params.likeId }, req.body)
-        .then(() => res.status(200).json({ ok: true }))
-        .catch(err => res.status(400).json({ message: err.message }));
+exports.updateLike = async (req, res) => {
+    const like = await LikeTemplate.findById(req.params.likeId);
+    if (!like) return res.status(400).json({ message: "Like does not exist" });
+
+    const post = await PostTemplate.findOne({ _id: req.params.postId });
+    if (!post) return res.status(400).json({ message: "Post does not exist" });
+
+    if (!like.owner_id.equals(req.decoded.userId)) {
+        return res.status(400).json({ message: "Like can only be updated by like owner" });
+    }
+
+    try {
+        const updatedLike = await LikeTemplate.findByIdAndUpdate(req.params.likeId, req.body);
+        res.status(200).json(updatedLike);
+    } catch (err) {
+        res.status(500).json({ message: err.message })
+    }
 };
 
 exports.deleteLike = async (req, res) => {
