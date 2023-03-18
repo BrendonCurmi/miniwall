@@ -5,11 +5,11 @@ const likeController = require("./likeController");
 const validateMiddleWare = require("../middleware/validate");
 const { validateLike } = require("./likes.model");
 
-router.route("/post/:postId/like").post([validateMiddleWare(validateLike)], likeController.addLike);
+router.route("/post/:postId/like").post([validateMiddleWare(validateLike())], likeController.addLike);
 
 router.route("/post/:postId/like/:likeId")
     .get(likeController.getLike)
-    .put(likeController.updateLike)
+    .put([validateMiddleWare(validateLike())], likeController.updateLike)
     .delete(likeController.deleteLike);
 
 module.exports = router;
