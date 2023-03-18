@@ -10,9 +10,6 @@ app.use(express.json());
 
 // app.use(express.urlencoded({ extended: false }));
 
-const indexRouter = require("./routes/index");
-app.use("/", indexRouter);
-
 const authRouter = require("./users/authRoutes");
 app.use("/", authRouter);
 
