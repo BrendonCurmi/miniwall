@@ -5,25 +5,31 @@ const userSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        min: 5,
+        max: 30
     },
     username: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        min: 5,
+        max: 30
     },
     password: {
         type: String,
-        required: true
+        required: true,
+        min: 8,
+        max: 50
     },
     date: { type: Date, default: Date.now, required: true }
 });
 
 const UserTemplate = mongoose.model("UserTemplate", userSchema, "users");
 
-const emailSchema = Joi.string().email();
+const emailSchema = Joi.string().min(5).max(30).email();
 const usernameSchema = Joi.string().min(5).max(30).regex(/[a-zA-Z0-9]/);
-const passwordSchema = Joi.string().min(8).max(200).regex(/[a-zA-Z0-9]{8,200}/);
+const passwordSchema = Joi.string().min(8).max(50).regex(/[a-zA-Z0-9]{8,50}/);
 
 const validateUser = (user) => {
     const schema = Joi.object({
