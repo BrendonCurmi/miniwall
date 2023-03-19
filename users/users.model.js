@@ -19,8 +19,6 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true,
-        min: 8,
-        max: 50
     },
     date: { type: Date, default: Date.now, required: true }
 });
