@@ -11,7 +11,7 @@ router.route("/post/:postId/comments").get(commentController.getCommentsFromPost
 
 router.route("/post/:postId/comment/:commentId")
     .get(commentController.getComment)
-    .put(commentController.updateComment)
+    .put([validateMiddleWare(validateComment)], commentController.updateComment)
     .delete(commentController.deleteComment);
 
 module.exports = router;
