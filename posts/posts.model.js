@@ -4,11 +4,15 @@ const Joi = require("joi");
 const postSchema = new mongoose.Schema({
     title: {
         type: String,
-        required: true
+        required: true,
+        min: 5,
+        max: 30
     },
     content: {
         type: String,
         required: true,
+        min: 5,
+        max: 200
     },
     owner_id: {
         type: mongoose.Schema.Types.ObjectId,
