@@ -5,6 +5,8 @@ const commentSchema = new mongoose.Schema({
     content: {
         type: String,
         required: true,
+        min: 5,
+        max: 200
     },
     post_id: {
         type: mongoose.Schema.Types.ObjectId,
@@ -21,13 +23,9 @@ const commentSchema = new mongoose.Schema({
 
 const CommentTemplate = mongoose.model("CommentTemplate", commentSchema, "comments");
 
-const contentSchema = Joi.string().min(5).max(200);
-const emailSchema = Joi.string().email();
-
 const validateComment = (user) => {
     const schema = Joi.object({
-        content: contentSchema.required(),
-        email: emailSchema.required()
+        content: Joi.string().min(5).max(200).required()
     });
     return schema.validate(user);
 };
