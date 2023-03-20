@@ -12,7 +12,8 @@ exports.addLike = async (req, res) => {
     try {
         const newLike = await new LikeTemplate({
             post_id: post._id,
-            owner_id: req.decoded.userId
+            owner_id: req.decoded.userId,
+            reaction: req.body.reaction
         }).save();
 
         await PostTemplate.findByIdAndUpdate(req.params.postId,
