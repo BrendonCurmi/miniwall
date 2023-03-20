@@ -14,7 +14,7 @@ exports.login = async (req, res) => {
     }
 
     const token = jwt.sign({ userId: user._id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "15m" });
-    res.sendStatus(200).header("Authorization", token);
+    res.header("Authorization", token).sendStatus(200);
 };
 
 const hashPassword = async (password) => {
