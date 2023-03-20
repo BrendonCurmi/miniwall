@@ -27,7 +27,7 @@ const LikeTemplate = mongoose.model("LikeTemplate", likeSchema, "likes");
 
 const validateLike = (user) => {
     const schema = Joi.object({
-        reaction: Joi.string().valid(reactionTypes).required(),
+        reaction: Joi.string().valid(...reactionTypes).required(),
     });
     return schema.validate(user);
 };
