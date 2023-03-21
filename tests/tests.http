@@ -65,6 +65,7 @@ Content-Type: application/json
 
 
 ### Olga makes unsuccessful call
+#todo
 GET {{API}}/feed
 
 ### Olga creates post
@@ -166,10 +167,8 @@ Content-Type: application/json
 Authorization: {{nickToken}}
 
 {
-  "email": "myemail@email.com",
   "type": "like"
 }
-###todo remove email from the above and below and below that
 
 ### Olga likes Mary's post
 POST {{API}}/post/{{maryPostId}}/like
@@ -177,7 +176,6 @@ Content-Type: application/json
 Authorization: {{olgaToken}}
 
 {
-  "email": "myemail@email.com",
   "type": "like"
 }
 
@@ -189,7 +187,6 @@ Content-Type: application/json
 Authorization: {{maryToken}}
 
 {
-  "email": "myemail@email.com",
   "type": "like"
 }
 
