@@ -16,11 +16,8 @@ exports.addComment = async (req, res) => {
             owner_id: req.decoded.userId
         }).save();
 
-        await PostTemplate.findByIdAndUpdate(req.params.postId,
-            {
-                $push: { comments: newComment._id }
-            },
-            { new: true });
+        // Add comment id to post
+        await PostTemplate.findByIdAndUpdate(req.params.postId, { $push: { comments: newComment._id } });
 
         return res.status(201).json(newComment);
     } catch (err) {
@@ -77,10 +74,8 @@ exports.deleteComment = async (req, res) => {
         return res.status(400).json({ message: "Comment can only be deleted by comment owner" });
     }
 
-    await PostTemplate.findByIdAndUpdate(req.params.postId,
-        {
-            $pull: { comments: comment._id }
-        });
+    // Delete comment id from post
+    await PostTemplate.findByIdAndUpdate(req.params.postId, { $pull: { comments: comment._id } });
 
     comment.deleteOne();
 
