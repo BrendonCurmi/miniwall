@@ -1,5 +1,6 @@
 const { PostTemplate } = require("./posts.model");
 const { deleteLikeById } = require("../likes/likeController");
+const { deleteCommentById } = require("../comments/commentController");
 
 exports.createPost = async (req, res) => {
     return new PostTemplate({
@@ -54,10 +55,17 @@ exports.deletePost = async (req, res) => {
         return res.status(400).json({ message: "Post can only be deleted by post owner" });
     }
 
-    // Delete likes
+    // Delete likes on post
     if (post.likes) {
         for (const likeId of post.likes) {
             await deleteLikeById(likeId);
+        }
+    }
+
+    // Delete comments on post
+    if (post.comments) {
+        for (const commentId of post.comments) {
+            await deleteCommentById(commentId);
         }
     }
 
