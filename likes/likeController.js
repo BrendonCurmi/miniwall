@@ -16,12 +16,12 @@ exports.addLike = async (req, res) => {
             reaction: req.body.reaction
         }).save();
 
+        // Add like id to post and increment likesLength
         await PostTemplate.findByIdAndUpdate(req.params.postId,
             {
                 $push: { likes: newLike._id },
                 $inc: { "likesLength": 1 }
-            },
-            { new: true });
+            });
 
         return res.status(201).json(newLike);
     } catch (err) {
@@ -75,6 +75,7 @@ exports.deleteLike = async (req, res) => {
         return res.status(400).json({ message: "Like can only be deleted by like owner" });
     }
 
+    // Delete like id from post and decrement likesLength
     await PostTemplate.findByIdAndUpdate(req.params.postId,
         {
             $pull: { likes: like._id },
