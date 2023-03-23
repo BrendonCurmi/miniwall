@@ -4,8 +4,7 @@ Authorization: {{user1Token}}
 Content-Type: application/json
 
 {
-  "email": "myemail@email.com",
-  "type": "like"
+  "reaction": "like"
 }
 
 ### Create like on other's post
@@ -14,8 +13,7 @@ Authorization: {{user2Token}}
 Content-Type: application/json
 
 {
-  "email": "myemail@email.com",
-  "type": "like"
+  "reaction": "like"
 }
 
 ### Read other's like
@@ -32,7 +30,7 @@ Authorization: {{user1Token}}
 Content-Type: application/json
 
 {
-  "type": "crying"
+  "reaction": "heart"
 }
 
 ### Update own like
@@ -41,7 +39,7 @@ Authorization: {{user2Token}}
 Content-Type: application/json
 
 {
-  "type": "heart"
+  "reaction": "heart"
 }
 
 ### Delete other's like unsuccessfully
