@@ -1,4 +1,8 @@
-### Read all posts
+### Read the ordered feed
+GET {{API}}/feed
+Authorization: {{user1Token}}
+
+### Read all unordered posts
 GET {{API}}/posts
 Authorization: {{user1Token}}
 
