@@ -57,7 +57,7 @@ exports.updateUser = async (req, res) => {
                     username: req.body.username,
                     password: await hashPassword(req.body.password)
                 }
-            });
+            }, { new: true });
         res.status(200).json(updatedUser);
     } catch(err) {
         res.status(500).json({ message: err.message });
