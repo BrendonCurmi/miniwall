@@ -75,7 +75,7 @@ exports.deletePost = async (req, res) => {
 };
 
 exports.getFeed = async (req, res) => {
-    const limit = 5;//todo set limit
+    const limit = req.query.max || 30;
     const posts = await PostTemplate.find().sort({ "likesLength": "desc", "timestamp": "desc" }).limit(limit);
     res.status(200).json(posts);
 };
