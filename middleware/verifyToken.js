@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 
+// Adapted from Lab 4, Part 1: MiniFilm REST Verification and Authentication
 const verifyToken = async (req, res, next) => {
     const token = req.header("Authorization");
     if (token) {
