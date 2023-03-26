@@ -6,6 +6,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         unique: true,
+        trim: true,
         min: 5,
         max: 30
     },
@@ -13,6 +14,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         unique: true,
+        trim: true,
         min: 5,
         max: 30
     },
