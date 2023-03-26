@@ -28,8 +28,8 @@ Authorization: {{user1Token}}
 Content-Type: application/json
 
 {
-  "password": "newPassword",
-  "email": "myemail@email.com"
+  "email": "user1updated@email.com",
+  "password": "user1PasswordUpdated"
 }
 
 ### Delete
@@ -44,7 +44,3 @@ Content-Type: application/json
   "email": "user1@email.com",
   "password": "user1Password"
 }
-
-### Test auth
-GET {{API}}
-Authorization: {{user1Token}}
