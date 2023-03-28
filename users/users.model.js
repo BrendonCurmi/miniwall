@@ -7,6 +7,7 @@ const userSchema = new mongoose.Schema({
         required: true,
         unique: true,
         trim: true,
+        lowercase: true,
         min: 5,
         max: 30
     },
@@ -15,6 +16,7 @@ const userSchema = new mongoose.Schema({
         required: true,
         unique: true,
         trim: true,
+        lowercase: true,
         min: 5,
         max: 30
     },
