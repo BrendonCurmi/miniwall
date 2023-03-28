@@ -29,12 +29,6 @@ exports.addLike = async (req, res) => {
     }
 };
 
-exports.getLikes = (req, res) => {
-    LikeTemplate.find()
-        .then(data => res.status(200).json(data))
-        .catch(err => res.status(500).json({ message: err.message }));
-};
-
 exports.getLike = async (req, res) => {
     try {
         const like = await LikeTemplate.findById(req.params.likeId);
