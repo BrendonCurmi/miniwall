@@ -7,7 +7,7 @@ Content-Type: application/json
 
 {
   "email": "olga@email.com",
-  "username": "Olga",
+  "username": "olga",
   "password": "olgaPassword"
 }
 
@@ -17,7 +17,7 @@ Content-Type: application/json
 
 {
   "email": "nick@email.com",
-  "username": "Nick",
+  "username": "nick",
   "password": "nickPassword"
 }
 
@@ -27,7 +27,7 @@ Content-Type: application/json
 
 {
   "email": "mary@email.com",
-  "username": "Mary",
+  "username": "mary",
   "password": "maryPassword"
 }
 
