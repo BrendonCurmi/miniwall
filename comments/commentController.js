@@ -29,7 +29,7 @@ exports.getCommentsFromPost = async (req, res) => {
     const post = await PostTemplate.findOne({ _id: req.params.postId });
     if (!post) return res.status(400).json({ message: "Post does not exist" });
 
-    CommentTemplate.find({ post_id: post._id }).limit(20)
+    CommentTemplate.find({ post_id: post._id })
         .then(data => res.status(200).json(data))
         .catch(err => res.status(500).json({ message: err.message }));
 };
