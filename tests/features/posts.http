@@ -3,7 +3,7 @@ GET {{API}}/feed
 Authorization: {{user1Token}}
 
 ### Read all unordered posts
-GET {{API}}/posts
+GET {{API}}/posts?max=20
 Authorization: {{user1Token}}
 
 ### Create post
