@@ -75,6 +75,7 @@ exports.deletePost = async (req, res) => {
 };
 
 exports.getFeed = async (req, res) => {
+    // Adapted from https://www.practical-mongodb-aggregations.com/examples/joining/one-to-one-join.html
     const limit = req.query.max || 30;
     const posts = await PostTemplate.aggregate([
         // Join comments
