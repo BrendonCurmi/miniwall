@@ -76,6 +76,29 @@ exports.deletePost = async (req, res) => {
 
 exports.getFeed = async (req, res) => {
     const limit = req.query.max || 30;
-    const posts = await PostTemplate.find().sort({ "likesLength": "desc", "timestamp": "desc" }).limit(limit);
+    const posts = await PostTemplate.aggregate([
+        // Join comments
+        {
+            $lookup: {
+                from: "comments",
+                localField: "comments",
+                foreignField: "_id",
+                as: "comments"
+            }
+        },
+        // Order comments from oldest to newest
+        { $sort: { "post.comments.timestamp": -1 } },
+        // Join likes
+        {
+            $lookup: {
+                from: "likes",
+                localField: "likes",
+                foreignField: "_id",
+                as: "likes"
+            }
+        }
+    ])
+        .sort({ "likesLength": "desc", "timestamp": "desc" })
+        .limit(limit);
     res.status(200).json(posts);
 };
