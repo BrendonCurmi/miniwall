@@ -37,7 +37,7 @@ exports.getUser = async (req, res) => {
         // Verify user access
         const user = await UserTemplate.findOne({ username: req.params.username });
         if (!user) return res.status(400).json({ message: "User does not exist" });
-        if (user._id !== req.decoded.userId) return res.status(400).json({ message: "Cannot view other users" });
+        if (!user._id.equals(req.decoded.userId)) return res.status(400).json({ message: "Cannot view other users" });
         res.status(200).json(user);
     } catch(err) {
         res.status(500).json({ message: err.message });
@@ -49,7 +49,7 @@ exports.updateUser = async (req, res) => {
         // Verify user access
         const user = await UserTemplate.findOne({ username: req.params.username });
         if (!user) return res.status(400).json({ message: "User does not exist" });
-        if (user._id !== req.decoded.userId) return res.status(400).json({ message: "Cannot update other users" });
+        if (!user._id.equals(req.decoded.userId)) return res.status(400).json({ message: "Cannot update other users" });
 
         // Update and return
         const updatedUser = await UserTemplate.findOneAndUpdate(
@@ -71,7 +71,7 @@ exports.deleteUser = async (req, res) => {
     // Verify user access
     const user = await UserTemplate.findOne({ username: req.params.username });
     if (!user) return res.status(400).json({ message: "User does not exist" });
-    if (user._id !== req.decoded.userId) return res.status(400).json({ message: "Cannot delete other users" });
+    if (!user._id.equals(req.decoded.userId)) return res.status(400).json({ message: "Cannot delete other users" });
 
     // Delete and verify deletion
     const deleted = await UserTemplate.deleteOne({ username: req.params.username });
