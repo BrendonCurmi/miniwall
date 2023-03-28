@@ -4,7 +4,7 @@ Content-Type: application/json
 
 {
   "email": "user1@email.com",
-  "username": "User1",
+  "username": "user1",
   "password": "user1Password"
 }
 
@@ -14,16 +14,16 @@ Content-Type: application/json
 
 {
   "email": "user2@email.com",
-  "username": "User2",
+  "username": "user2",
   "password": "user2Password"
 }
 
 ### Read user 1
-GET {{API}}/user/User1
+GET {{API}}/user/user1
 Authorization: {{user1Token}}
 
 ### Update user 1
-PUT {{API}}/user/User1
+PUT {{API}}/user/user1
 Authorization: {{user1Token}}
 Content-Type: application/json
 
@@ -33,7 +33,7 @@ Content-Type: application/json
 }
 
 ### Delete
-DELETE {{API}}/user/User1
+DELETE {{API}}/user/user1
 Authorization: {{user1Token}}
 
 ### Login
