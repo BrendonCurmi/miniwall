@@ -3,15 +3,13 @@ const jwt = require("jsonwebtoken");
 const bcryptjs = require("bcryptjs");
 
 exports.login = async (req, res) => {
+    // Verify user
     const user = await UserTemplate.findOne({ email: req.body.email });
-    if (!user) {
-        return res.status(400).json({ message: "User does not exist" });
-    }
+    if (!user) return res.status(400).json({ message: "User does not exist" });
 
+    // Verify password
     const isValidPassword = await bcryptjs.compare(req.body.password, user.password);
-    if (!isValidPassword) {
-        return res.status(400).json({ message: "Incorrect password" });
-    }
+    if (!isValidPassword) return res.status(400).json({ message: "Incorrect password" });
 
     const token = jwt.sign({ userId: user._id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "15m" });
     res.header("Authorization", token).sendStatus(200);
@@ -36,8 +34,10 @@ exports.createUser = async (req, res) => {
 
 exports.getUser = async (req, res) => {
     try {
+        // Verify user access
         const user = await UserTemplate.findOne({ username: req.params.username });
         if (!user) return res.status(400).json({ message: "User does not exist" });
+        if (user._id !== req.decoded.userId) return res.status(400).json({ message: "Cannot view other users" });
         res.status(200).json(user);
     } catch(err) {
         res.status(500).json({ message: err.message });
@@ -46,9 +46,12 @@ exports.getUser = async (req, res) => {
 
 exports.updateUser = async (req, res) => {
     try {
+        // Verify user access
         const user = await UserTemplate.findOne({ username: req.params.username });
         if (!user) return res.status(400).json({ message: "User does not exist" });
+        if (user._id !== req.decoded.userId) return res.status(400).json({ message: "Cannot update other users" });
 
+        // Update and return
         const updatedUser = await UserTemplate.findOneAndUpdate(
             { username: req.params.username },
             {
@@ -65,9 +68,12 @@ exports.updateUser = async (req, res) => {
 };
 
 exports.deleteUser = async (req, res) => {
+    // Verify user access
     const user = await UserTemplate.findOne({ username: req.params.username });
     if (!user) return res.status(400).json({ message: "User does not exist" });
+    if (user._id !== req.decoded.userId) return res.status(400).json({ message: "Cannot delete other users" });
 
+    // Delete and verify deletion
     const deleted = await UserTemplate.deleteOne({ username: req.params.username });
     res.sendStatus(deleted.deletedCount === 1 ? 200 : 500);
 };
