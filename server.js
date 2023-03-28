@@ -24,7 +24,7 @@ app.use(verifyToken);
 
 // Add routes
 const usersRouter = require("./users/userRoutes");
-app.use("/user", usersRouter);
+app.use(usersRouter);
 
 const postRouter = require("./posts/postRoutes");
 app.use(postRouter);

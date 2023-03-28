@@ -5,7 +5,7 @@ const userController = require("./userController");
 const validateMiddleWare = require("../middleware/validate");
 const { validateUpdateUser } = require("./users.model");
 
-router.route("/:username")
+router.route("/user/:username")
     .get(userController.getUser)
     .put(validateMiddleWare(validateUpdateUser), userController.updateUser)
     .delete(userController.deleteUser);
