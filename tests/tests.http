@@ -65,7 +65,6 @@ Content-Type: application/json
 
 
 ### Olga makes unsuccessful call
-#todo
 GET {{API}}/feed
 
 ### Olga creates post
