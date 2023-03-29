@@ -31,6 +31,15 @@ exports.addLike = async (req, res) => {
     }
 };
 
+exports.getLikesFromPost = async (req, res) => {
+    const post = await PostTemplate.findOne({ _id: req.params.postId });
+    if (!post) return res.status(400).json({ message: "Post does not exist" });
+
+    LikeTemplate.find({ post_id: post._id })
+        .then(data => res.status(200).json(data))
+        .catch(err => res.status(500).json({ message: err.message }));
+};
+
 exports.getLike = async (req, res) => {
     try {
         // Verify like
