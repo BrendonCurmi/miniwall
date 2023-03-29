@@ -167,7 +167,7 @@ Content-Type: application/json
 Authorization: {{nickToken}}
 
 {
-  "type": "like"
+  "reaction": "like"
 }
 
 ### Olga likes Mary's post
@@ -176,7 +176,7 @@ Content-Type: application/json
 Authorization: {{olgaToken}}
 
 {
-  "type": "like"
+  "reaction": "like"
 }
 
 
@@ -187,7 +187,7 @@ Content-Type: application/json
 Authorization: {{maryToken}}
 
 {
-  "type": "like"
+  "reaction": "like"
 }
 
 
