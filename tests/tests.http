@@ -1,5 +1,5 @@
 ### TC1: Create Olga's account
-POST http://localhost:3000/signup
+POST {{API}}/signup
 Content-Type: application/json
 
 {
@@ -9,7 +9,7 @@ Content-Type: application/json
 }
 
 ### TC1: Create Nick's account
-POST http://localhost:3000/signup
+POST {{API}}/signup
 Content-Type: application/json
 
 {
@@ -19,7 +19,7 @@ Content-Type: application/json
 }
 
 ### TC1: Create Mary's account
-POST http://localhost:3000/signup
+POST {{API}}/signup
 Content-Type: application/json
 
 {
@@ -29,7 +29,7 @@ Content-Type: application/json
 }
 
 ### TC2: Log into Olga's account
-POST http://localhost:3000/login
+POST {{API}}/login
 Content-Type: application/json
 
 {
@@ -38,7 +38,7 @@ Content-Type: application/json
 }
 
 ### TC2: Log into Nick's account
-POST http://localhost:3000/login
+POST {{API}}/login
 Content-Type: application/json
 
 {
@@ -47,7 +47,7 @@ Content-Type: application/json
 }
 
 ### TC2: Log into Mary's account
-POST http://localhost:3000/login
+POST {{API}}/login
 Content-Type: application/json
 
 {
@@ -56,10 +56,10 @@ Content-Type: application/json
 }
 
 ### TC3: Olga makes unsuccessful call
-GET http://localhost:3000/feed
+GET {{API}}/feed
 
 ### TC4: Olga creates post
-POST http://localhost:3000/post
+POST {{API}}/post
 Content-Type: application/json
 Authorization: {{olgaToken}}
 
@@ -69,7 +69,7 @@ Authorization: {{olgaToken}}
 }
 
 ### TC5: Nick creates post
-POST http://localhost:3000/post
+POST {{API}}/post
 Content-Type: application/json
 Authorization: {{nickToken}}
 
@@ -79,7 +79,7 @@ Authorization: {{nickToken}}
 }
 
 ### TC6: Mary creates post
-POST http://localhost:3000/post
+POST {{API}}/post
 Content-Type: application/json
 Authorization: {{maryToken}}
 
@@ -89,15 +89,15 @@ Authorization: {{maryToken}}
 }
 
 ### TC7: Nick browses feed
-GET http://localhost:3000/feed
+GET {{API}}/feed
 Authorization: {{nickToken}}
 
 ### TC7: Olga browses feed
-GET http://localhost:3000/feed
+GET {{API}}/feed
 Authorization: {{olgaToken}}
 
 ### TC8: Nick comments first on Mary's post
-POST http://localhost:3000/post/64289969355a983b37d2abe5/comment
+POST {{API}}/post/{{maryPostId}}/comment
 Content-Type: application/json
 Authorization: {{nickToken}}
 
@@ -106,7 +106,7 @@ Authorization: {{nickToken}}
 }
 
 ### TC8: Olga comments second on Mary's post
-POST http://localhost:3000/post/{{maryPostId}}/comment
+POST {{API}}/post/{{maryPostId}}/comment
 Content-Type: application/json
 Authorization: {{olgaToken}}
 
@@ -115,7 +115,7 @@ Authorization: {{olgaToken}}
 }
 
 ### TC8: Nick comments third on Mary's post
-POST http://localhost:3000/post/{{maryPostId}}/comment
+POST {{API}}/post/{{maryPostId}}/comment
 Content-Type: application/json
 Authorization: {{nickToken}}
 
@@ -124,7 +124,7 @@ Authorization: {{nickToken}}
 }
 
 ### TC8: Olga comments fourth on Mary's post
-POST http://localhost:3000/post/{{maryPostId}}/comment
+POST {{API}}/post/{{maryPostId}}/comment
 Content-Type: application/json
 Authorization: {{olgaToken}}
 
@@ -133,7 +133,7 @@ Authorization: {{olgaToken}}
 }
 
 ### TC9: Mary fails to comment on her post
-POST http://localhost:3000/post/{{maryPostId}}/comment
+POST {{API}}/post/{{maryPostId}}/comment
 Content-Type: application/json
 Authorization: {{maryToken}}
 
@@ -142,15 +142,15 @@ Authorization: {{maryToken}}
 }
 
 ### TC10: Mary browses feed
-GET http://localhost:3000/feed
+GET {{API}}/feed
 Authorization: {{maryToken}}
 
 ### TC11: Mary browses comments on her post
-GET http://localhost:3000/post/{{maryPostId}}/comments
+GET {{API}}/post/{{maryPostId}}/comments
 Authorization: {{maryToken}}
 
 ### TC12: Nick likes Mary's post
-POST http://localhost:3000/post/{{maryPostId}}/like
+POST {{API}}/post/{{maryPostId}}/like
 Content-Type: application/json
 Authorization: {{nickToken}}
 
@@ -159,7 +159,7 @@ Authorization: {{nickToken}}
 }
 
 ### TC12: Olga likes Mary's post
-POST http://localhost:3000/post/{{maryPostId}}/like
+POST {{API}}/post/{{maryPostId}}/like
 Content-Type: application/json
 Authorization: {{olgaToken}}
 
@@ -168,7 +168,7 @@ Authorization: {{olgaToken}}
 }
 
 ### TC13: Mary fails to like her post
-POST http://localhost:3000/post/{{maryPostId}}/like
+POST {{API}}/post/{{maryPostId}}/like
 Content-Type: application/json
 Authorization: {{maryToken}}
 
@@ -177,9 +177,9 @@ Authorization: {{maryToken}}
 }
 
 ### TC14: Mary browses likes on her post
-GET http://localhost:3000/post/{{maryPostId}}/likes
+GET {{API}}/post/{{maryPostId}}/likes
 Authorization: {{maryToken}}
 
 ### TC15: Nick browses feed and sees Mary's post at the top
-GET http://localhost:3000/feed
+GET {{API}}/feed
 Authorization: {{nickToken}}
