@@ -93,7 +93,7 @@ GET {{API}}/feed
 Authorization: {{nickToken}}
 
 ### TC7: Olga browses feed
-GET {{API}}/post
+GET {{API}}/feed
 Authorization: {{olgaToken}}
 
 ### TC8: Nick comments first on Mary's post
@@ -142,7 +142,7 @@ Authorization: {{maryToken}}
 }
 
 ### TC10: Mary browses feed
-GET {{API}}/post
+GET {{API}}/feed
 Authorization: {{maryToken}}
 
 ### TC11: Mary browses comments on her post
