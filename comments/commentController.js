@@ -30,6 +30,7 @@ exports.getCommentsFromPost = async (req, res) => {
     if (!post) return res.status(400).json({ message: "Post does not exist" });
 
     CommentTemplate.find({ post_id: post._id })
+        .sort({ "timestamp": 1 })
         .then(data => res.status(200).json(data))
         .catch(err => res.status(500).json({ message: err.message }));
 };
