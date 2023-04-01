@@ -87,8 +87,23 @@ exports.getFeed = async (req, res) => {
                 as: "comments"
             }
         },
-        // Order comments from oldest to newest
-        { $sort: { "post.comments.timestamp": -1 } },
+        // Sort comments by their timestamp in order from oldest to newest
+        {
+            $set: {
+                comments: {
+                    $function: {
+                        body: `
+                            function (comments) {
+                              return comments.sort(function(a, b) {
+                                return a.timestamp - b.timestamp;
+                              });
+                            }`,
+                        args: ["$comments"],
+                        lang: "js"
+                    }
+                }
+            }
+        },
         // Join likes
         {
             $lookup: {
@@ -97,9 +112,11 @@ exports.getFeed = async (req, res) => {
                 foreignField: "_id",
                 as: "likes"
             }
-        }
-    ])
-        .sort({ "likesLength": "desc", "timestamp": "desc" })
-        .limit(limit);
+        },
+        // Sort by most to least likesLength and from newest to oldest timestamp
+        { $sort: { "likesLength": -1, "timestamp": -1 } },
+        // Limit the number of results
+        { $limit: limit }
+    ]);
     res.status(200).json(posts);
 };
