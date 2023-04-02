@@ -16,6 +16,10 @@ Content-Type: application/json
   "reaction": "like"
 }
 
+### Read likes on post
+GET {{API}}/post/{{user1PostId}}/likes
+Authorization: {{user1Token}}
+
 ### Read other's like
 GET {{API}}/post/{{user1PostId}}/like/{{user2LikeId}}
 Authorization: {{user1Token}}
